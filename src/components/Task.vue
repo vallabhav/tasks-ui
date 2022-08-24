@@ -4,21 +4,34 @@ export default {
   props: ['task'],
   data() {
     return {
-
+      checked: false,
+      taskId: ''
     }
   },
   methods: {
-    delete() {
-      
+    dateFormat(timestamp) {
+       let date_formatted = new Date(timestamp);
+       return date_formatted.toISOString().substring(0,10);
+    },
+
+    getTasksTobeCleared() {
+      console.log("cleared tasks" + this.tasksToClear);
+      return this.tasksToClear;
+    },
+
+    handleCheck(taskId) {
+      this.taskId = taskId;
     }
+
   }
 }
 </script>
 
 <template>
      <div class="task-row">
-      <label class="task-name">{{ task.name }}<input type="checkbox" id="{{ task.id }}" /></label>
-      <label class="date">{{ task.date }}</label>
+      <label class="task-name"  :for="task.id">{{ task.description }}</label>
+      <input type="checkbox" @change="handleCheck(task.id)" :id="task.id" name="taskIds"  v-model="checked"  />
+      <label class="date" :for="task.id">{{ dateFormat(task.date) }}</label>
     </div>
 </template>
 

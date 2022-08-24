@@ -1,33 +1,62 @@
 <script>
+import axios from "axios";
+axios.defaults.headers.get["Content-Type"] = "application/json";
 export default {
+  props: ["reloadTasks"],
   data() {
     return {
-      task: '',
-      date: null
-    }
+      task: {
+        description: "",
+        date: "",
+      },
+      showNewPanel: false
+    };
   },
   methods: {
     addTask() {
-      alert("new task: " + this.task + "-" + this.date);
-    }
-  }
-}
+      let self = this;
+      let date = new Date(this.task.date).getTime();
+      console.log("new task: " + this.task.description + "-" + date);
+
+      axios
+        .post("/tasks", {
+          description: this.task.description,
+          date: date,
+        })
+        .then(function (response) {
+          // clear data
+          self.task.description = "";
+          self.task.date = "";
+
+          // trigger reload tasks
+          self.$parent.setReloadTask(true);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+  },
+};
 </script>
 
 <template>
-  <div class="add-task">
+  <div v-if="showNewPanel">
+    <button @click="showNewPanel = !showNewPanel">Close</button>
+  </div>
+  <div v-if="showNewPanel" class="add-task">
     <h3>Add Task</h3>
     <label for="task">Description</label>
-    <input class="form-input" id="task" v-model="task">
-    <label for="date">Date</label>
-    <input class="form-input" id="date" v-model="date">
+    <input class="form-input" id="task" v-model="task.description" />
+    <label for="date">Date(yyyy-dd-mm)</label>
+    <input class="form-input" id="date" v-model="task.date" />
     <button @click="addTask">Save</button>
+  </div>
+  <div v-else class="new-btn-row">
+    <button @click="showNewPanel = true">New</button>
   </div>
 </template>
 
 <style scoped>
-
-
 .form-input {
   padding: 5px;
   width: 100%;

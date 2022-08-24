@@ -10,7 +10,7 @@ This template should help get you started developing with Vue 3 in Vite.
 
 See [Vite Configuration Reference](https://vitejs.dev/config/).
 
-## Project Setup
+## Project Setup(Development): 
 
 ```sh
 npm install
@@ -38,4 +38,24 @@ npm run test:unit
 
 ```sh
 npm run lint
+```
+
+## Project Setup(Development): Run within docker
+
+### Build docker
+
+```sh
+docker build -t tasks-ui .
+```
+
+### Verify the docker image
+
+```sh
+docker images | grep "tasks-ui"
+```
+
+### Run docker image(Test the site at: http://localhost:8085)
+
+```sh
+docker run -d -p 8085:80 tasks-ui:latest 
 ```

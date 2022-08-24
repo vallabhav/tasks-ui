@@ -9,28 +9,23 @@ export default {
   },
   data() {
     return {
-      tasks: [
-        {
-          id: '0001',
-          name: 'Learn React',
-          date: '2022-01-03'
-        },
-        {
-          id: '0002',
-          name: 'Profit',
-          date: '2021-01-05'
-        }
-      ]
+      tasks: [],
+      reloadTasks: false
+    }
+  },
+  methods: {
+    setReloadTask(flag) {
+      this.reloadTasks =  flag;
     }
   }
-  
 }
 </script>
 
 <template>
 <div class="task-manager">
-  <AddTask />
-  <Tasks :tasks="tasks" />
+<h1>Task Manager System</h1>
+  <AddTask/>
+  <Tasks :tasks="tasks"  :reloadTasks="this.reloadTasks" />
 </div>
 </template>
 

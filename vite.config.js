@@ -11,5 +11,14 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  server: {
+    proxy: {
+      '/tasks': 'http://localhost:8080'
+    }
   }
-})
+});
+
+
+
+
