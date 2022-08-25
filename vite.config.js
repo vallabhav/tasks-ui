@@ -14,7 +14,7 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/tasks': 'http://localhost:8080'
+      '/tasks': 'http://localhost:9002'
     }
   }
 });

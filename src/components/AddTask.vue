@@ -2,14 +2,14 @@
 import axios from "axios";
 axios.defaults.headers.get["Content-Type"] = "application/json";
 export default {
-  props: ["reloadTasks"],
+  props: ["reloadTasks", "showForm"],
   data() {
     return {
       task: {
         description: "",
         date: "",
       },
-      showNewPanel: false
+      showNewPanel: this.showForm
     };
   },
   methods: {
@@ -46,7 +46,7 @@ export default {
   <div v-if="showNewPanel" class="add-task">
     <h3>Add Task</h3>
     <label for="task">Description</label>
-    <input class="form-input" id="task" v-model="task.description" />
+    <input ref="description"  class="form-input" id="task" v-model="task.description" />
     <label for="date">Date(yyyy-dd-mm)</label>
     <input class="form-input" id="date" v-model="task.date" />
     <button @click="addTask">Save</button>

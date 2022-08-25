@@ -20,4 +20,10 @@ describe("Tasks", () => {
     ]}});
     expect(tasks.findAllComponents(Task).length).toBe(2);
   });
+
+  it("empty list rendering", () => {
+    const tasks = mount(Tasks, { props: {tasks: []}});
+    expect(tasks.findAllComponents(Task).length).toBe(0);
+  });
+
 });

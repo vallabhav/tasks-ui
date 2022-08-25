@@ -24,7 +24,7 @@ export default {
 <template>
 <div class="task-manager">
 <h1>Task Manager System</h1>
-  <AddTask/>
+  <AddTask :showForm=false />
   <Tasks :tasks="tasks"  :reloadTasks="this.reloadTasks" />
 </div>
 </template>
